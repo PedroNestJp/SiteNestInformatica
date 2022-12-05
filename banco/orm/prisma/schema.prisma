@@ -26,6 +26,7 @@ model usuariospj {
   senha              String @db.VarChar(20)
   repetirSenha       String @map("repetir_senha")@db.VarChar(20)
   id                 Int    @id @default(autoincrement())
+  enderecos enderecos[]
 
   @@unique([cnpj, inscriEstadual, email], map: "usuariospj_un")
 }
@@ -39,6 +40,7 @@ model usuarios {
   email          String    @db.VarChar(100)
   senha          String    @db.VarChar(20)
   repetirSenha   String    @map("repetir_senha") @db.VarChar(20)
+  enderecos enderecos[]
 
   @@unique([cpf, email], map: "usuarios_un")
 }
@@ -47,14 +49,17 @@ model estados {
   id Int @id @default(autoincrement())
   nome String @db.VarChar(50)
   sigla String @db.VarChar(3)
-  ciadedes Int
-  cidadesId cidades @relation(fields: [ciadedes], references: [enderecoId])
+  ciadedesId Int @map("cidades_id")
+  cidade cidades @relation(fields: [ciadedesId], references: [id])
+  
 }
 
 model cidades {
   id         Int    @id @default(autoincrement())
   nome       String @db.VarChar(100)
-  enderecoId Int
+  enderecoId Int @map("endereco_id")
+  endereco enderecos @relation(fields: [enderecoId], references: [id])
+  estados estados[]
 
 }
 
@@ -63,7 +68,11 @@ model enderecos {
   rua        String @db.VarChar(200)
   numero     Int
   bairro     String @db.VarChar(30)
-  estado     String @db.VarChar(30)
+  usuariosId Int @map("usuarios_id")
+  usuario usuarios @relation( fields: [usuariosId],references: [id])
+  usuariospjId Int @map("usuariopj_id")
+  usuariopj usuariospj @relation(fields: [usuariospjId], references: [id])
+  cidades cidades[]
 
 }
 
