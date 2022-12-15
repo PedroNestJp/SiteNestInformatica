@@ -82,7 +82,7 @@ app.post("/usuariospj", async (req,res) => {
 })
 
 app.get('/usuariospj', async (req,res)=>{
-    const usuariospj = await prisma.usuariospj.findMany()
+    const usuariospj = await prisma.usuariospj.findMany({ include:{enderecos:true}})
     if (usuariospj) {
         res.send(usuariospj)
     }
