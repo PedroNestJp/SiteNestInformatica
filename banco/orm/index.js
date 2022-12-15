@@ -45,7 +45,8 @@ app.delete('/produtos/:id', async (req, res)=> {
 
 
 app.post('/usuarios', async (req, res)=> {
-    const data = req.body
+    let data = req.body
+    data.enderecos = {create:[req.body.enderecos]}
     const usuarios = await prisma.usuarios.create({data})
     res.send('usuário criado com sucesso ✅')
     
@@ -75,7 +76,9 @@ app.delete('/usuarios/:id', async (req, res)=> {
 
 
 app.post("/usuariospj", async (req,res) => {
-    const data = req.body
+   let data = req.body 
+   console.log(data)
+   data.enderecos = {create:[req.body.enderecos]}
     console.log(data)
     const usuariospj = await prisma.usuariospj.create({data})
     if(usuariospj){
@@ -97,6 +100,7 @@ app.get('/usuariospj/:id', async (req,res)=>{
         res.status(201).send(` O usuárioPJ ${usuariospj.nomeFantasia} de cnpj:${usuariospj.cnpj} cujo id:${id}, foi encontrado ✅`)
     }
 })
+
 
 app.listen (PORT, ()=>{
     console.log(`✔ serviço rodando em: http://localhost:${PORT}`)
