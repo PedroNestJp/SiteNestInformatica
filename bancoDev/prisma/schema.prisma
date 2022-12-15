@@ -55,12 +55,14 @@ model produtos {
   descricao String? @db.VarChar(254)
   categoria String  @db.VarChar(30)
   valor     String? @db.VarChar(50)
+  carrinho carrinho[]
 }
 
 model carrinho{
   id                  Int     @id @default(autoincrement())
-  numeroPedido        Int     @map("numero_pedido")
   qtdProdutos         Int     @map("qtd_produtos")
+  idProdutos          Int     @map("id_produtos")
+  produtos        produtos    @relation(fields: [idProdutos], references: [id])
   total               String  @db.VarChar(30)
 
 }
