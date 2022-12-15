@@ -75,7 +75,7 @@ app.delete('/usuarios/:id', async (req, res)=> {
 
 app.post("/usuariospj", async (req,res) => {
    const data = {  ...req.body,   enderecos: {create: [req.body.enderecos]}}
-    const usuariospj = await prisma.usuariospj.create({data:data})
+    const usuariospj = await prisma.usuariospj.create({data})
     if(usuariospj){
         res.send('UsuárioPJ criado com sucesso ✅')
     }
