@@ -21,13 +21,6 @@ model enderecos {
 
 }
 
-model produtos {
-  id        Int     @id @default(autoincrement())
-  nome      String? @db.VarChar(50)
-  descricao String? @db.VarChar(254)
-  categoria String  @db.VarChar(30)
-  valor     String? @db.VarChar(50)
-}
 
 model usuarios {
   id              Int         @id @default(autoincrement())
@@ -54,4 +47,43 @@ model usuariospj {
   repetirSenha          String      @db.VarChar(20)   @map("repetir_senha")
   enderecos             enderecos[]
 
+}
+
+model produtos {
+  id        Int     @id @default(autoincrement())
+  nome      String? @db.VarChar(50)
+  descricao String? @db.VarChar(254)
+  categoria String  @db.VarChar(30)
+  valor     String? @db.VarChar(50)
+}
+
+model carrinho{
+  id                  Int     @id @default(autoincrement())
+  numeroPedido        Int     @map("numero_pedido")
+  qtdProdutos         Int     @map("qtd_produtos")
+  total               String  @db.VarChar(30)
+
+}
+
+model finalizar {
+  id            Int @id @default(autoincrement())
+  idPedido      Int @map("id_pedido")
+  idProdutos    Int @map("id_produtos")
+  idUsuario     Int @map("id_usuario")
+}
+
+model pedidos{
+  id                  Int     @id @default(autoincrement())
+  numeroPedido        Int     @map("numero_pedido")
+  qtdProdutos         Int     @map("qtd_produtos")
+  total               String  @db.VarChar(30)
+
+}
+
+
+model produtosPedidos {
+  id            Int @id @default(autoincrement())
+  idPedido      Int @map("id_pedido")
+  idProdutos    Int @map("id_produtos")
+  idUsuario     Int @map("id_usuario")
 }
