@@ -13,9 +13,17 @@ app.get ('/', (req, res)=> {
 
 app.post('/produtos', async (req, res)=> {
     const data = req.body
+    const produtos = await prisma.produtos.createMany({data})
+    if (produtos){ 
+        res.send("Produto criado com sucesso ✅")
+    }
+})
+
+app.post('/produtos', async (req, res)=> {
+    const data = req.body
     const produtos = await prisma.produtos.create({data})
     if (produtos){ 
-        res.send("Produto criado com sucesso")
+        res.send("Produto criado com sucesso ✅")
     }
 })
 
@@ -95,7 +103,6 @@ app.get('/usuariospj/:id', async (req,res)=>{
         res.status(201).send(` O usuárioPJ ${usuariospj.nomeFantasia} de cnpj:${usuariospj.cnpj} cujo id:${id}, foi encontrado ✅`)
     }
 })
-
 
 app.listen (PORT, ()=>{
     console.log(`✔ serviço rodando em: http://localhost:${PORT}`)
