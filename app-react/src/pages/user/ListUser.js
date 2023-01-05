@@ -20,12 +20,14 @@ const ListUser = () => {
         return usuarios.map((user) => (
             <tr>
                 <td>{user.id}</td>
-                <td>{user.nome}</td>
+                <td>{user.nomeCompleto}</td>
                 <td>{user.cpf}</td>
                 <td>{user.email}</td>
+                <td>{user.createdAt}</td>
+                <td>{user.updatedAt}</td>
                 <td>
-                    <Link to={`/user/edit/${user.id}`}>
-                        <button>Editar</button>
+                    <Link to={`/user/update/${user.id}`} user = {user} >
+                        <button>Update</button>
                     </Link>
                 </td>
             </tr>
@@ -42,13 +44,15 @@ const ListUser = () => {
                     </button>
                 </Link>
             </div>
-            {produtos.length > 0 ? <table>
+            {usuarios.length > 0 ? <table>
                 <thead>
                     <tr>
                         <td>Código</td>
-                        <td>Nome do produto</td>
-                        <td>Descrição</td>
-                        <td>Valor</td>
+                        <td>Nome do usuario</td>
+                        <td>cpf</td>
+                        <td>email</td>
+                        <td>createdAt</td>
+                        <td>updatedAt</td>
                         <td></td>
                     </tr>
                 </thead>

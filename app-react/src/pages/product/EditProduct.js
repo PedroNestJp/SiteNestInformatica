@@ -1,18 +1,17 @@
 import axios from "axios"
 import { useState, useEffect } from "react"
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 
-const EditProdut = () => {
-
+const EditProduct = (props) => {
     const [nome, setNome] = useState("")
     const [descricao, setDescricao] = useState("")
     const [valor, setValor] = useState("")
     const { id } = useParams()
+    const navigate = useNavigate();
 
     useEffect(() => {
         buscarProduto()
-        updateProduct()
-    }, [])
+    })
 
     const buscarProduto = async () => {
         const resposta = await axios.get(`http://localhost:3001/products/${id}`)
@@ -21,15 +20,15 @@ const EditProdut = () => {
         setValor(resposta.data.valor)
     }
 
-    const updateProduct = async (event) => {
+    const editarProduto = async (event) => {
         event.preventDefault()
         const produto = {
-            nome: nome,
+            titulo: nome,
             descricao: descricao,
             valor: valor 
         }
-        const resposta = await axios.post(`http://localhost:3001/product/update/${id}`, produto)
-        if (resposta.status == 200) {
+        const resposta = await axios.put(`http://localhost:3001/product/update/${id}`, produto)
+        if (resposta.status === 200) {
             navigate("/products");
         }
     }
@@ -58,23 +57,23 @@ const EditProdut = () => {
                     type="text" 
                     name="descricao" 
                     placeholder="Descrição do produto" 
-                     value={descricao} 
-                     onChange={(event) => setDescricao(event.target.value)}
+                    value={descricao} 
+                    onChange={(event) => setDescricao(event.target.value)}
                 />
             </div>
             <div>
-                <label>Valor:</label>
+                <label>Preço:</label>
                 <input 
                     type="text" 
                     name="preco" 
                     placeholder="Preço do produto" 
-                     value={valor}
-                     onChange={(event) => setValor(event.target.value)}
+                    value={valor}
+                    onChange={(event) => setValor(event.target.value)}
                 />
             </div>
-            <button  onClick={(e) => updateProduct(e)} >Atualizar</button>
+            <button onClick={(e) => editarProduto(e)}>Atualizar</button>
         </div>
     )
 }
 
-export default EditProdut
+export default EditProduct
