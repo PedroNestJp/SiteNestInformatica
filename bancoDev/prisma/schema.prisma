@@ -15,8 +15,8 @@ model enderecos {
   rua           String      @db.VarChar(200)
   numero        Int
   bairro        String      @db.VarChar(30)
-  cidade        String      @db.VarChar(60)
-  estado        String      @db.VarChar(30)
+  cidade        String?      @db.VarChar(60)
+  estado        String?      @db.VarChar(30)
   usuarioId     Int?        @map("usuario_id")
   usuarioPjId   Int?        @map("usuario_pj_id")
   usuario      usuarios?   @relation(fields: [usuarioId], references: [id])
@@ -28,6 +28,7 @@ model enderecos {
 model usuarios {
   id              Int         @id @default(autoincrement())
   createdAt       DateTime    @default(now())
+  updateddAt      DateTime    @default(now())
   cpf             String      @unique @map("cpf")   @db.VarChar(15)
   celular         String      @db.VarChar(17)
   email           String      @unique @map("email") @db.VarChar(100)
@@ -52,6 +53,8 @@ model usuariospj {
   nomeFantasia          String?     @db.VarChar(100)  @map("nome_fantasia")
   razaoSocial           String?     @db.VarChar(100)  @map("razao_social")
   repetirSenha          String      @db.VarChar(20)   @map("repetir_senha")
+  createdAt           DateTime    @default(now())
+  updateddAt          DateTime    @updatedAt
   enderecos             enderecos[]
   carrinho              carrinho[]
   finalizarCompra       finalizarCompra[]
@@ -60,9 +63,12 @@ model usuariospj {
 model produtos {
   id            Int         @id @default(autoincrement())
   nome          String     @db.VarChar(50)
+  typeCpu       String?    @db.VarChar(10) @map("type_cpu")
   descricao     String?     @db.VarChar(254)
   categoria     String?    @db.VarChar(30)
   valor         String      @db.VarChar(50)
+  createdAt     DateTime    @default(now())
+  updateddAt    DateTime    @updatedAt
   carrinho      carrinho[]
   Favoritos       produtosFavoritos[] 
   
