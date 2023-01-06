@@ -1,16 +1,24 @@
 import { Link } from "react-router-dom"
 
-const Footer = () => {
+const Nav = () => {
+
     return(
-        <footer>
-          <h3>  por Pedro Nest </h3>
-        </footer>
+        <nav>
+          <ul>
+            <li> <Link to="/" > Home </Link> </li>
+            <li> <Link to="/products" > Produtos </Link> </li>
+            <li> <Link to="/users" > Users </Link> </li>
+          </ul>
+        </nav>
     )
 }
 
-const Nav = () => {
-
-  
+const Footer = () => {
+  return(
+      <footer>
+        <h3>  Desenvolvido por Pedro Nest </h3>
+      </footer>
+  )
 }
 
 export {Footer, Nav}

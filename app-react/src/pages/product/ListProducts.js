@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 
 
+
 const ListProducts = () => {
 
     const [produtos, setProdutos] = useState([])
@@ -20,10 +21,11 @@ const ListProducts = () => {
     const deletarProduto = async (id) => {
         const resposta = await axios.delete(`http://localhost:3001/product/delete/${id}`)
         setProdutos(resposta.data)
-        navigate('/products')
         
         
-    }
+        
+    } 
+    navigate('/products')
 
     const preencheTabela = () => {
         return produtos.map((produto) => (

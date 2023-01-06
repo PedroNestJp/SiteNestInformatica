@@ -23,7 +23,7 @@ const EditProduct = (props) => {
     const editarProduto = async (event) => {
         event.preventDefault()
         const produto = {
-            titulo: nome,
+            nome: nome,
             descricao: descricao,
             valor: valor 
         }

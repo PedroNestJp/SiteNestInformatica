@@ -6,7 +6,7 @@ import { Link, useNavigate } from 'react-router-dom'
 const CreateProduct = () => {
     const [nome, setNome] = useState("")
     const [descricao, setDescricao] = useState("")
-    const [preco, setPreco] = useState("")
+    const [valor, setValor] = useState("")
     const navigate = useNavigate();
 
     const cadastrarProduto = async (event) => {
@@ -14,7 +14,7 @@ const CreateProduct = () => {
         const produto = {
             nome: nome,
             descricao: descricao,
-            preco: preco 
+            valor: valor 
         }
         const resposta = await axios.post('http://localhost:3001/produtos', produto)
         if (resposta.status === 200) {
@@ -55,8 +55,8 @@ const CreateProduct = () => {
                     type="text" 
                     name="preco" 
                     placeholder="Preço do produto" 
-                    value={preco}
-                    onChange={(event) => setPreco(event.target.value)}
+                    value={valor}
+                    onChange={(event) => setValor(event.target.value)}
                     />
             </div>
             <button onClick={(e) => cadastrarProduto(e)}>Cadastrar</button>
